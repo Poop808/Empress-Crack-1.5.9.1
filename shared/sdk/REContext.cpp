@@ -225,7 +225,9 @@ namespace sdk {
         for (auto i = 0; i < 0x20000; i += sizeof(void*)) {
             auto ptr = *(sdk::RETypeDB**)((uintptr_t)*potential_context + i);
 
-            if (ptr == nullptr || IsBadReadPtr(ptr, sizeof(void*)) || ((uintptr_t)ptr & (sizeof(void*) - 1)) != 0) {
+            if (ptr == nullptr || IsBadMemPtr(false, (void*)ptr, sizeof(void*)) ||
+                // IsBadReadPtr(ptr, sizeof(void*)) || 
+                ((uintptr_t)ptr & (sizeof(void*) - 1)) != 0) {
                 continue;
             }
 
